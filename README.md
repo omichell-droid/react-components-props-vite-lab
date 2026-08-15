@@ -1,94 +1,92 @@
-# Putting it All Together: Components and Props
+# Underreacted — Personal Blog Site
 
-## Learning Goals
-
-- Create components that return JSX
-- Use props to make components dynamic
-- Transform lists of data into lists of components
+A static personal blog built with React to practice creating components, writing JSX, and passing data down as props.
 
 ## Overview
 
-Now that you've learned how to work with components in React, it's time to build
-something and put those skills to use! Your goal for this lab is to make a
-_static site_ in React to practice building components, writing JSX, and passing
-down data as props.
+This project renders a personal blog homepage with:
+- A **Header** displaying the blog's name
+- An **About** section with a profile image and bio
+- An **Article List** displaying a list of blog posts, each rendered as an individual **Article**
 
-We'll be creating a personal blog site, similar to
-[Dan Abramov's Overreacted](https://overreacted.io/):
+All blog content lives in `src/data/blog.js` and is passed down through `App.jsx` into each component via props.
 
-![demo](https://curriculum-content.s3.amazonaws.com/phase-2/react-hooks-component-props-mini-project/demo.png)
+## Component Tree
 
-There is some starter code available in `src/components/App.js`. There is also
-some data in `data/blog.js` that is being imported into `App` so you can pass it
-down to the components that need it.
+```
+App
+├── Header
+├── About
+└── ArticleList
+    └── Article (one per post)
+```
+- **Header** — renders the blog's title (`name` prop from `App.jsx`)
+- **About** — renders a profile image and bio (`image`, `about` props from `App.jsx`)
+- **ArticleList** — renders the full list of posts (`posts` prop from `App.jsx`), maps each post to an `Article`
+- **Article** — renders a single post's title, date, and preview (`title`, `date`, `preview` props from `ArticleList.jsx`)
 
-## Deliverables
+## Getting Started
 
-Have a look at the components below and draw out a component hierarchy so you
-can determine how to pass data down as props.
+### Prerequisites
+- [Node.js](https://nodejs.org/) installed on your machine
 
-### Header
+### Installation
 
-Make a `Header` component as a child of `App`. It should return:
+Clone the repo and install dependencies:
 
-- a `<header>` element with the following elements inside:
-  - an `<h1>` with the name of the blog, passed as a prop called `name`
+```bash
+git clone <your-repo-url>
+cd react-components-props-vite-lab
+npm install
+```
 
-### About
+### Running the app
 
-Make an `About` component as a child of `App`. It should return:
+```bash
+npm run dev
+```
 
-- an `<aside>` element with the following elements inside:
-  - an `<img>` element, with the `src` set to an image passed as a prop called
-    `image`
-  - the `<img>` element should use this placeholder image as a _default value_
-    for the prop if no prop is passed in: "https://via.placeholder.com/215"
-  - the image should also be accessible! Give it an `alt` attribute of "blog
-    logo"
-  - a `<p>` element, with the text for the blog passed in as a prop called
-    `about`
+Then open the local URL shown in your terminal (usually `http://localhost:5173`) in your browser.
 
-### ArticleList
+### Running tests
 
-Make an `ArticleList` component as a child of `App`. It should return:
+This project includes Jest/Vitest tests for each component, verifying that props render correctly.
 
-- a `<main>` element with the following components inside:
-  - an array of `Article` components (one component for each of the `posts`
-    passed down as props to `ArticleList`)
-  - make sure to assign a unique `key` attribute to each `Article`
+```bash
+npm test
+```
 
-### Article
+## Screenshot
 
-Make an `Article` component as a child of `ArticleList`. It should return:
+(https://file%2B.vscode-resource.vscode-cdn.net/var/folders/zd/cc_ld5ds57z8tx_cnmjtz31m0000gn/T/TemporaryItems/NSIRD_screencaptureui_xl7DqJ/Screenshot%202026-08-15%20at%2019.59.31.png?version%3D1786813189428)
 
-- an `<article>` element, with the following elements inside:
-  - an `<h3>` element displaying the title of the article, passed as a prop
-    called `title`
-  - a `<small>` element displaying the date of the article, passed as a prop
-    called `date`
-    - a _default value_ of "January 1, 1970" should be used if no date is passed
-      as a prop
-  - a `<p>` element displaying the preview of the article, passed as a prop
-    called `preview`
 
-### Bonus Feature: 'Minutes to Read'
+![Blog site preview](https://file%2B.vscode-resource.vscode-cdn.net/var/folders/zd/cc_ld5ds57z8tx_cnmjtz31m0000gn/T/TemporaryItems/NSIRD_screencaptureui_xl7DqJ/Screenshot%202026-08-15%20at%2019.59.31.png?version%3D1786813189428)
+```
 
-You'll notice in the original [Overreacted](https://overreacted.io/) site,
-there's a 'minutes to read' indicator next to each article.
+## Tech Stack
+- React
+- Vite
+- Vitest / React Testing Library (for component tests)
 
-If the article takes less than 30 minutes to read:
+## Project Structure
 
-- For every 5 minutes (rounded up to the nearest 5), display a coffee cup emoji.
-  For example, if the article takes 3 minutes to read, you should display "☕️ 3
-  min read". If the article takes 7 minute, you should display "☕️☕️ 7 min
-  read".
-
-If the article takes 30 minutes or longer to read:
-
-- For every 10 minutes (rounded up to the nearest 10), display a bento box
-  emoji. For example, if the article takes 35 minutes to read, you should
-  display "🍱🍱🍱🍱 35 min read". If the article takes 61 minutes to read, you
-  should display "🍱🍱🍱🍱🍱🍱🍱 61 min read".
-
-There aren't tests for this feature, so you'll have to rely on running the code
-in the browser to see if your implementation works!
+```
+src/
+├── components/
+│   ├── App.jsx
+│   ├── Header.jsx
+│   ├── About.jsx
+│   ├── ArticleList.jsx
+│   └── Article.jsx
+├── data/
+│   └── blog.js
+├── assets/
+│   └── (images)
+└── __tests__/
+    ├── App.test.jsx
+    ├── Header.test.jsx
+    ├── About.test.jsx
+    ├── ArticleList.test.jsx
+    └── Article.test.jsx
+```
